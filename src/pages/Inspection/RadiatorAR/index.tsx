@@ -14,7 +14,7 @@ import Information from '../../../assets/icons/Symbol_Info_Black.svg';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 type RootStackParamList = {
-  DCPageTwo: { screenshotUri: string };
+  INSQuestionnaire: { screenshotUri: string };
 };
 
 const InitialScene = () => {
@@ -62,7 +62,7 @@ export const RadiatorAR = () => {
   const takeScreenshot = () => {
     navigatorRef.current?._takeScreenshot("screenshot", true).then((result) => {
         console.log("Screenshot URL:", result.url); 
-        navigation.navigate('DCPageTwo', { screenshotUri: result.url });
+        navigation.navigate('INSQuestionnaire', { screenshotUri: result.url });
     }).catch((error) => {
         console.error("Failed to take screenshot: ", error);
     });

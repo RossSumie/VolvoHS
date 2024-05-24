@@ -28,7 +28,7 @@ const Home = () => {
                   Daily Checkup
                 </S.ButtonText>
               </S.MenuButton>
-              <S.MenuButton>
+              <S.MenuButton onPress={()=> navigate('Inspection')}>
               <S.IconContainer>
                   <INSIcon width = {32}/>
                 </S.IconContainer>

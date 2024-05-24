@@ -48,6 +48,7 @@ const DCPageOne = () => {
             onChange={handleWeatherChange}
             selectedValue={weatherOption}
           />
+          <S.Gap/>
           <QuestionTitle>What kind of operations will be done today?</QuestionTitle>
           <CustomRadioButtonGroup
             labels={['Heavy', 'Light', 'Very Deep', 'High Load', 'NA']}

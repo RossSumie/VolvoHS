@@ -48,13 +48,6 @@ const DCPageThree = () => {
             onChange={handlesoundChange}
             selectedValue={soundOption}
           />
-          <QuestionTitle>Are there any abnormal smells?</QuestionTitle>
-          <CustomRadioButtonGroup
-            labels={['Yes', 'Possibly', 'No', 'NA']}
-            name="smellGroup"
-            onChange={handlesmellChange}
-            selectedValue={smellOption}
-          />
         </S.QuestionContainer>
         <S.NextButton onPress={() => navigate('DCReport')}>
           <S.NextButtonText>Next</S.NextButtonText>

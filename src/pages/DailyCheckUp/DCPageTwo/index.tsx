@@ -53,21 +53,11 @@ const DCPageTwo: React.FC<DCPageTwoProps> = ({ route}) => {
     setCoolantLeaksOption(value);
   };
 
-  const [imageUri, setImageUri] = useState('');
-
-  useEffect(() => {
-    if (route.params?.screenshotUri) {
-      const formattedUri = `file://${route.params.screenshotUri}`;
-      console.log("Formatted URI:", formattedUri); // Para debugging
-      setImageUri(formattedUri);
-    }
-  }, [route.params?.screenshotUri]);
-
   return (
     <S.Wrapper>
       <Header/>
       <S.Container>
-        <S.QuestionContainer>
+        <S.QuestionnaireContainer>
           <Progress.Bar 
             progress={0.6}
             height={8}
@@ -76,22 +66,8 @@ const DCPageTwo: React.FC<DCPageTwoProps> = ({ route}) => {
             unfilledColor={'#A7ABA9'}
             borderWidth={0} 
             color={'#2D606F'}/>
+          <S.QuestionsContainer>
           <MainTitle>Engine</MainTitle>
-          <QuestionTitle>Please take a picture of your radiator</QuestionTitle>
-          <TouchableOpacity onPress={() => navigate('CoolantAR')}><Text>Coolant Tank bonus!</Text></TouchableOpacity>
-          <S.CameraButton onPress={handleCameraPress}>
-              <CameraIcon width={32}/>
-          </S.CameraButton>
-          {imageUri ? <Image source={{ uri: imageUri }} style={{ width: 250, height: 300 }} /> : null}
-          <S.Gap/>
-          <QuestionTitle>How is the radiator?</QuestionTitle>
-          <CustomRadioButtonGroup
-            labels={['Clean/Undamaged', 'Dirty/Damaged']}
-            name="weatherGroup"
-            onChange={handleRadiatorChange}
-            selectedValue={radiatorOption}
-          />
-           <S.Gap/>
           <QuestionTitle>How is the coolant level?</QuestionTitle>
           <CustomRadioButtonGroup
             labels={['Ok', 'Close to minimum', 'Below minimum', 'NA']}
@@ -117,7 +93,8 @@ const DCPageTwo: React.FC<DCPageTwoProps> = ({ route}) => {
             onChange={handleCoolantLeaksChange}
             selectedValue={coolantLeaksOption}
           />
-        </S.QuestionContainer>
+          </S.QuestionsContainer>
+        </S.QuestionnaireContainer>
         <S.Gap/>
         <S.Gap/>
         <S.NextButton onPress={() => navigate('DCPageThree')}>

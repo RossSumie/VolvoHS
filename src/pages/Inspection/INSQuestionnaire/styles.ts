@@ -15,16 +15,11 @@ export const Container = styled.View`
 export const QuestionnaireContainer = styled.View`
   display: flex;
   flex-direction: column;
-  width: 100%;
-`;
-
-export const QuestionsContainer = styled.View`
-  display: flex;
-  flex-direction: column;
-  margin: 32px 0 32px 0;
   align-items: center;
-  gap: 16px;
-`;
+  width: 100%;
+  gap:16px;
+  margin: 16px 0 80px 0;
+`
 
 export const Gap = styled.View`
   height:16px;

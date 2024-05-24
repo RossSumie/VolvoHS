@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+
+# Compiled output
+/build
+/android/app/build
+/android/app/src/main/assets/index.android.bundle
+/ios/build/
+/ios/Pods/
+
+# Packager cache
+/.haste-cache/
+/.metro-cache/
+/metro-bundler-cache/
+
+# Keystores (important for Android builds)
+*.jks
+*.keystore
+*.p12
+/android/app/debug.keystore
+
+# Generated files
+/android/app/src/main/res/drawable-*
+/android/app/src/main/res/raw/
+
+# Bundle artifacts
+/android/app/src/main/assets/index.android.bundle.meta
+
+# Gradle files
+.gradle/
+/android/.gradle/
+/android/captures/
+/android/app/.cxx/
+/android/local.properties
+
+# Xcode
+ios/.generated/
+ios/xcuserdata/
+ios/*.xcworkspace/
+ios/*.xcodeproj/project.xcconfig
+ios/*.xcodeproj/xcshareddata/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.env
+*.env.*  # .env.local, .env.development, .env.production, etc.
+
+# Yarn
+.yarn/
+.pnp.*
+.yarnrc.yml
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# VS Code
+.vscode/

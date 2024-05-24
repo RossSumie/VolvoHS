@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/VolvoNovum3-Bold.ttf",
+      "sha1": "e248ad8eafa450adcc771d67ad2a2e676edc5a6e"
+    },
+    {
+      "path": "assets/fonts/VolvoNovum3-BoldItalic.ttf",
+      "sha1": "add4d67ac58d2d0cdb4a5689e15619cb2d3bf8de"
+    },
+    {
+      "path": "assets/fonts/VolvoNovum3-Italic.ttf",
+      "sha1": "945f12a94dfa64a39e10f8560a0dcfd83009ffe8"
+    },
+    {
+      "path": "assets/fonts/VolvoNovum3-Light.ttf",
+      "sha1": "0125fe9930c2c39599281ea1d503d5ba8a3adba3"
+    },
+    {
+      "path": "assets/fonts/VolvoNovum3-LightItalic.ttf",
+      "sha1": "4f308871ada67cd535dc000eba78ceee883770ac"
+    },
+    {
+      "path": "assets/fonts/VolvoNovum3-Regular.ttf",
+      "sha1": "39d74e5319dbcb7141984e207a22e6b398d8aff3"
+    },
+    {
+      "path": "assets/fonts/VolvoNovum3-SemiLight.ttf",
+      "sha1": "85e58e10cb8b5141334a8eb482db2706ecc471ee"
+    },
+    {
+      "path": "assets/fonts/VolvoNovum3-SemiLightItalic.ttf",
+      "sha1": "8041c27730aff1da325be41b9ac474802389f7f4"
+    }
+  ]
+}

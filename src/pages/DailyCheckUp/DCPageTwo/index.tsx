@@ -1,56 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Dimensions, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Dimensions } from 'react-native';
 import * as S from './styles';
 import * as Progress from 'react-native-progress';
 import Header from '../../../components/Common/Header';
 import MainTitle from '../../../components/Common/MainTitle';
 import { useNavigation } from '@react-navigation/core';
-import {DailyCheckUpStackScreensProps} from '../../../routes/AppStack/OperatorFlowStack/DailyCheckUpFlowStack'
+import { DailyCheckUpStackScreensProps } from '../../../routes/AppStack/OperatorFlowStack/DailyCheckUpFlowStack';
 import QuestionTitle from '../../../components/Common/QuestionTitle';
 import NextIcon from '../../../assets/icons/Symbol_Arrow right_White.svg';
-import CameraIcon from '../../../assets/icons/Device_Camera_White.svg';
 import CustomRadioButtonGroup from '../../../components/Common/RadioButtonGroup';
-import { Image } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
+import { useRadioButton } from '../../../hooks/radioButtonContext';
 
-
-type DCPageTwoStackParamList = {
-  DCPageTwo: {
-    screenshotUri: string;
-  };
-};
-
-type DCPageTwoProps = {
-  route: RouteProp<DCPageTwoStackParamList, 'DCPageTwo'>;
-};
-
-const DCPageTwo: React.FC<DCPageTwoProps> = ({ route}) => {
+const DCPageTwo = () => {
   const screenWidth = Dimensions.get('window').width;
-
   const { navigate } = useNavigation<DailyCheckUpStackScreensProps>();
-  const handleCameraPress = () => {
-    navigate('RadiatorAR'); // Make sure 'RadiatorAR' is the name used in your navigation stack
-  };
-
-  const [radiatorOption, setRadiatorOption] = useState('');
-  const [coolantLevelOption, setCoolantLevelOption] = useState('');
-  const [coolantLeaksOption, setCoolantLeaksOption] = useState('');
-  const [selectedDuo, setSelectedDuo] = useState<string | null>(null);
-  
-  const handlePressDuo = (value: string) => {
-      setSelectedDuo(value);
-  };
-
-  const handleRadiatorChange = (value: string) => {
-    setRadiatorOption(value);
-  };
+  const { options, setOption} = useRadioButton();
 
   const handleCoolantLevelChange = (value: string) => {
-    setCoolantLevelOption(value);
+    setOption('coolantLevel', value);
   };
 
   const handleCoolantLeaksChange = (value: string) => {
-    setCoolantLeaksOption(value);
+    setOption('coolantLeaks', value);
+  };
+
+  const handlePressDuo = (value: string) => {
+    setOption('coolantRefill', value);
   };
 
   return (
@@ -67,32 +42,32 @@ const DCPageTwo: React.FC<DCPageTwoProps> = ({ route}) => {
             borderWidth={0} 
             color={'#2D606F'}/>
           <S.QuestionsContainer>
-          <MainTitle>Engine</MainTitle>
-          <QuestionTitle>How is the coolant level?</QuestionTitle>
-          <CustomRadioButtonGroup
-            labels={['Ok', 'Close to minimum', 'Below minimum', 'NA']}
-            name="operationGroup"
-            onChange={handleCoolantLevelChange}
-            selectedValue={coolantLevelOption}
-          />
-           <S.Gap/>
-          <QuestionTitle>Was the coolant refilled today?</QuestionTitle>
-          <S.DuoContainer>
-            <S.DuoButton isSelected={selectedDuo === 'yes'} onPress={() => handlePressDuo('yes')}>
-              <S.DuoButtonText isSelected={selectedDuo === 'yes'}>Yes</S.DuoButtonText>
-            </S.DuoButton>
-            <S.DuoButton isSelected={selectedDuo === 'no'} onPress={() => handlePressDuo('no')}>
-              <S.DuoButtonText isSelected={selectedDuo === 'no'}>No</S.DuoButtonText>
-            </S.DuoButton>
-         </S.DuoContainer>
-           <S.Gap/>
-          <QuestionTitle>Are there any coolant leaks?</QuestionTitle>
-          <CustomRadioButtonGroup
-            labels={['Ok', 'Coolant Droplets', 'Clear Leak', 'NA']}
-            name="operationGroup"
-            onChange={handleCoolantLeaksChange}
-            selectedValue={coolantLeaksOption}
-          />
+            <MainTitle>Engine</MainTitle>
+            <QuestionTitle>How is the coolant level?</QuestionTitle>
+            <CustomRadioButtonGroup
+              labels={['Ok', 'Close to minimum', 'Below minimum', 'NA']}
+              name="coolantLevelGroup"
+              onChange={handleCoolantLevelChange}
+              selectedValue={options['coolantLevel'] || ''}
+            />
+            <S.Gap/>
+            <QuestionTitle>Was the coolant refilled today?</QuestionTitle>
+            <S.DuoContainer>
+              <S.DuoButton isSelected={options['coolantRefill'] === 'Yes'} onPress={() => handlePressDuo('Yes')}>
+                <S.DuoButtonText isSelected={options['coolantRefill'] === 'Yes'}>Yes</S.DuoButtonText>
+              </S.DuoButton>
+              <S.DuoButton isSelected={options['coolantRefill'] === 'No'} onPress={() => handlePressDuo('No')}>
+                <S.DuoButtonText isSelected={options['coolantRefill'] === 'No'}>No</S.DuoButtonText>
+              </S.DuoButton>
+            </S.DuoContainer>
+            <S.Gap/>
+            <QuestionTitle>Are there any coolant leaks?</QuestionTitle>
+            <CustomRadioButtonGroup
+              labels={['Ok', 'Coolant Droplets', 'Clear Leak', 'NA']}
+              name="coolantLeaksGroup"
+              onChange={handleCoolantLeaksChange}
+              selectedValue={options['coolantLeaks'] || ''}
+            />
           </S.QuestionsContainer>
         </S.QuestionnaireContainer>
         <S.Gap/>

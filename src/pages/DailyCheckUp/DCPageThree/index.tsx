@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dimensions } from 'react-native';
 import * as S from './styles';
 import * as Progress from 'react-native-progress';
 import Header from '../../../components/Common/Header';
 import MainTitle from '../../../components/Common/MainTitle';
 import { useNavigation } from '@react-navigation/core';
-import {DailyCheckUpStackScreensProps} from '../../../routes/AppStack/OperatorFlowStack/DailyCheckUpFlowStack'
+import { DailyCheckUpStackScreensProps } from '../../../routes/AppStack/OperatorFlowStack/DailyCheckUpFlowStack';
 import QuestionTitle from '../../../components/Common/QuestionTitle';
 import NextIcon from '../../../assets/icons/Symbol_Arrow right_White.svg';
 import CustomRadioButtonGroup from '../../../components/Common/RadioButtonGroup';
+import { useRadioButton } from '../../../hooks/radioButtonContext';
 
 const DCPageThree = () => {
   const screenWidth = Dimensions.get('window').width;
-
   const { navigate } = useNavigation<DailyCheckUpStackScreensProps>();
+  const { options, setOption } = useRadioButton();
 
-  const [soundOption, setsoundOption] = useState('');
-  const [smellOption, setsmellOption] = useState('');
-
+  // Handlers that update specific options using the setOption function
   const handlesoundChange = (value: string) => {
-    setsoundOption(value);
+    setOption('sound', value);
   };
 
-  const handlesmellChange = (value: string) => {
-    setsmellOption(value);
-  };
+  // Extracting specific option values from the options state
+  const soundOption = options['sound'] || '';
 
   return (
     <S.Wrapper>
@@ -34,7 +32,7 @@ const DCPageThree = () => {
           <Progress.Bar 
             progress={0.9}
             height={8}
-            width={screenWidth-56}
+            width={screenWidth - 56}
             animated={true}
             unfilledColor={'#A7ABA9'}
             borderWidth={0} 
@@ -43,7 +41,7 @@ const DCPageThree = () => {
           <MainTitle>Start up your engine</MainTitle>
           <QuestionTitle>Are there any abnormal sounds?</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['Yes', 'Possibly', 'No',  'NA']}
+            labels={['Yes', 'Possibly', 'No', 'NA']}
             name="soundGroup"
             onChange={handlesoundChange}
             selectedValue={soundOption}

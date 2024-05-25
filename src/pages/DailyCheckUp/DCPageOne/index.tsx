@@ -1,30 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dimensions } from 'react-native';
 import * as S from './styles';
 import * as Progress from 'react-native-progress';
 import Header from '../../../components/Common/Header';
 import MainTitle from '../../../components/Common/MainTitle';
 import { useNavigation } from '@react-navigation/core';
-import {DailyCheckUpStackScreensProps} from '../../../routes/AppStack/OperatorFlowStack/DailyCheckUpFlowStack'
+import { DailyCheckUpStackScreensProps } from '../../../routes/AppStack/OperatorFlowStack/DailyCheckUpFlowStack';
 import QuestionTitle from '../../../components/Common/QuestionTitle';
 import NextIcon from '../../../assets/icons/Symbol_Arrow right_White.svg';
 import CustomRadioButtonGroup from '../../../components/Common/RadioButtonGroup';
+import { useRadioButton } from '../../../hooks/radioButtonContext';
 
 const DCPageOne = () => {
   const screenWidth = Dimensions.get('window').width;
-
   const { navigate } = useNavigation<DailyCheckUpStackScreensProps>();
+  const { options, setOption } = useRadioButton();
 
-  const [weatherOption, setWeatherOption] = useState('');
-  const [operationOption, setOperationOption] = useState('');
-
+  // Handlers that update specific options using the setOption function
   const handleWeatherChange = (value: string) => {
-    setWeatherOption(value);
+    setOption('weather', value);
   };
 
   const handleOperationChange = (value: string) => {
-    setOperationOption(value);
+    setOption('operation', value);
   };
+
+  // Extracting specific option values from the options state
+  const weatherOption = options['weather'] || '';
+  const operationOption = options['operation'] || '';
 
   return (
     <S.Wrapper>
@@ -34,7 +37,7 @@ const DCPageOne = () => {
           <Progress.Bar 
             progress={0.3}
             height={8}
-            width={screenWidth-56}
+            width={screenWidth - 56}
             animated={true}
             unfilledColor={'#A7ABA9'}
             borderWidth={0} 

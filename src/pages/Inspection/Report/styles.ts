@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Wrapper = styled.View`
+export const Wrapper = styled.ScrollView`
   flex: 1;
   background-color:'#FF6347';
 `;
@@ -8,6 +8,7 @@ export const PageTitle = styled.Text`
   font-family: 'VolvoNovum3-Bold';
   font-size: 28px;
   color: #000;
+  margin-bottom: 16px;
 `
 export const Container = styled.View`
   display: flex;
@@ -17,6 +18,7 @@ export const Container = styled.View`
   padding: 32px;
   width: 100%;
   flex: 1;
+  gap: 32px;
 `;
 
 
@@ -38,7 +40,12 @@ export const ReportColumn = styled.View`
   flex-direction: column;
   align-items: left;
   justify-conten: left;
-  width: 50%;
+  width: 48%;
+`
+
+export const RawImageContainer = styled.View`
+  width: 100%;
+  align-items: center;
 `
 
 export const ReportLabel = styled.Text`

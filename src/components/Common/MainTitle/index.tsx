@@ -8,9 +8,7 @@ interface MainTitleProps {
 const MainTitle: React.FC<MainTitleProps> = ({ children }) => {
   return (
     <S.Wrapper>
-      <S.Text>
-        {children}
-      </S.Text>
+      <S.Text>{children}</S.Text>
     </S.Wrapper>
   );
 };

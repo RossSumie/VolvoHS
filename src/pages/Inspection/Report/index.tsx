@@ -16,16 +16,36 @@ const Report = () => {
 
   const handleSend = () => {
     clearOptions(); // Clear the context
-    navigate('RadiatorAR'); 
+    navigate('Home'); 
   };
 
   return (
     <S.Wrapper>
       <Header/>
       <S.Container>
-        <S.PageTitle>Inspection Report</S.PageTitle>
-        <ReportInformation/>
-        <MainTitle>Report Details</MainTitle>
+          <S.PageTitle>Inspection Report</S.PageTitle>
+          <ReportInformation/>
+        <S.QuestionContainer>
+        <MainTitle>Inspected Concern</MainTitle>
+          <S.ReportValue>Possible problems in cooling system</S.ReportValue>
+        </S.QuestionContainer>
+        <S.QuestionContainer>
+        <MainTitle>Reason for Concern</MainTitle>
+          <S.ReportValue>We have noticed repeated abnormal temperature increases without enviromental or workload causes</S.ReportValue>
+        </S.QuestionContainer>
+        <MainTitle>Raw Images</MainTitle>
+        <S.Report>
+          {Object.entries(options).map(([key, value]) => (
+            key.includes('screenshotUri') && value && (
+              <S.ReportDetails key={key}>
+                <S.RawImageContainer>
+                  <Image source={{ uri: value }} style={{ width: 200, height: 200 }} resizeMode="contain" />
+                </S.RawImageContainer>
+              </S.ReportDetails>
+            )
+          ))}
+        </S.Report>
+        <MainTitle>Report Log</MainTitle>
         <S.Report>
           {Object.entries(options).map(([key, value]) => (
             !key.includes('screenshotUri') && (
@@ -40,7 +60,7 @@ const Report = () => {
             )
           ))}
         </S.Report>
-        <MainTitle>Raw Images</MainTitle>
+        <MainTitle>Analyzed images</MainTitle>
         <S.Report>
           {Object.entries(options).map(([key, value]) => (
             key.includes('screenshotUri') && value && (

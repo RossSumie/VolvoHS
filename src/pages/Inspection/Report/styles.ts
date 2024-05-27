@@ -63,8 +63,7 @@ export const ReportValue = styled.Text`
 export const QuestionContainer = styled.View`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap:16px;
+  align-items: left;
   width: 100%;
 `;
 

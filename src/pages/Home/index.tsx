@@ -9,6 +9,7 @@ import DCIcon from '../../assets/icons/Time_Set time_Black.svg'
 import INSIcon from '../../assets/icons/Safety_Risk assessment_Black.svg'
 import MHIcon from '../../assets/icons/Finance_Line chart down_Black.svg'
 import TGIcon from '../../assets/icons/Action_Future tech_Black.svg'
+import SRIcon from '../../assets/icons/World_Ongoing chat_Black.svg'
 
 
 const Home = () => {
@@ -36,15 +37,15 @@ const Home = () => {
                   Inspection
                 </S.ButtonText>
               </S.MenuButton>
-              <S.MenuButton>
+              <S.MenuButton onPress={()=> navigate('SelfReport')}>
               <S.IconContainer>
-                  <DCIcon width = {32}/>
+                  <SRIcon width = {32}/>
                 </S.IconContainer>
                 <S.ButtonText>
                   Self Report
                 </S.ButtonText>
               </S.MenuButton>
-              <S.MenuButton>
+              <S.MenuButton onPress={()=> navigate('MachineHealthStatus')}>
               <S.IconContainer>
                   <MHIcon width = {32}/>
                 </S.IconContainer>

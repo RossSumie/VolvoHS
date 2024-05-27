@@ -6,15 +6,13 @@ import RadiatorAR from '../../../../pages/Inspection/RadiatorAR';
 import DCPageThree from '../../../../pages/DailyCheckUp/DCPageThree';
 import DCReport from '../../../../pages/DailyCheckUp/Report';
 import Home from '../../../../pages/Home';
-import CoolantAR from '../../../../pages/CoolantAR';
 
 type DailyCheckUpStackScreens = {
   DCPageOne: undefined;
   DCPageTwo:{ screenshotUri: string };
   DCPageThree: undefined;
   DCReport : undefined;
-  RadiatorAR: undefined;
-  CoolantAR: undefined;
+  Home: undefined;
 };
 
 export type DailyCheckUpStackScreensProps = StackNavigationProp<DailyCheckUpStackScreens>;
@@ -26,10 +24,10 @@ const DailyCheckUpFlowStack = () => (
   <Navigator screenOptions={{ headerShown: false }}>
     <Screen name="DCPageOne" component={DCPageOne} />
     <Screen name="DCPageTwo" component={DCPageTwo} initialParams={{ screenshotUri: '' }}/>
-    <Screen name="CoolantAR" component={CoolantAR} />
     <Screen name="DCPageThree" component={DCPageThree} />
     <Screen name="DCReport" component={DCReport} />
-    <Screen name="RadiatorAR" component={RadiatorAR} />
+    <Screen name="Home" component={Home} />
+
   </Navigator>
 );
 

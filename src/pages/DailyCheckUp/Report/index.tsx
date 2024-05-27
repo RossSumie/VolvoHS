@@ -17,7 +17,7 @@ const DCReport = () => {
 
   const handleSend = () => {
     clearOptions(); // Clear the context
-    navigate('DCPageOne'); // Navigate after clearing
+    navigate('Home'); // Navigate after clearing
   };
 
 
@@ -31,7 +31,7 @@ const DCReport = () => {
         <MainTitle>Report Log</MainTitle>
           {Object.entries(options).map(([key, value]) => (
             <S.ReportDetails>
-            <S.ReportColumn key={key}>
+            <S.ReportColumn key={value}>
               <S.ReportLabel>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:</S.ReportLabel>
             </S.ReportColumn>
             <S.ReportColumn>

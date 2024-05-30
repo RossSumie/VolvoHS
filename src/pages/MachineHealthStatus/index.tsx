@@ -73,7 +73,7 @@ const MachineHealthStatus = () => {
                   strokeCap="round"
                 />
               </View>
-              <S.ReportDetails>
+              <S.ReportDetailsOverview>
                   <S.ReportColumn>
                     <S.ReportLabel>Engine</S.ReportLabel>
                     <S.ReportLabel>Tracks</S.ReportLabel>
@@ -95,12 +95,12 @@ const MachineHealthStatus = () => {
                     <Circle size={16} status='average'/>
                     <Circle size={16} status='good'/>
                   </S.ReportColumn>
-              </S.ReportDetails>
+              </S.ReportDetailsOverview>
             </S.ContentContainer>
           ) : (
             <S.ContentContainer style={{gap: 16}}>
             <S.ReportDetails>
-              <S.ReportColumn>
+              <S.ReportColumn style ={{padding: 32}}>
                 <S.TagView style={{backgroundColor: '#ffe600'}}>
                   <S.TagText>CONCERN</S.TagText>
                 </S.TagView>
@@ -119,7 +119,7 @@ const MachineHealthStatus = () => {
               </S.ReportColumn>
             </S.ReportDetails>
             <S.ReportDetails>
-              <S.ReportColumn>
+              <S.ReportColumn style ={{padding: 32}} >
                 <S.TagView style={{backgroundColor:'#ff0000'}}>
                     <S.TagText style ={{color: 'white'}}>FAULT</S.TagText>
                 </S.TagView>   
@@ -137,7 +137,7 @@ const MachineHealthStatus = () => {
                 </S.InspectionRedirection>
             </S.ReportDetails>
             <S.ReportDetails>
-              <S.ReportColumn>
+              <S.ReportColumn style ={{padding: 32}}>
                 <S.TagView style={{backgroundColor: '#ffe600'}}>
                   <S.TagText>CONCERN</S.TagText>
                 </S.TagView>

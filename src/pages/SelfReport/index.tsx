@@ -11,10 +11,10 @@ import CameraIcon from '../../assets/icons/Device_Camera_White.svg';
 
 const SelfReport = () => {
   const { navigate } = useNavigation<OperatorStackScreensProps>();
-  const [isListening, setIsListening] = useState(false);
+  //const [isListening, setIsListening] = useState(false);
   const [result, setResult] = useState('');
 
-  useEffect(() => {
+  /*useEffect(() => {
     Voice.onSpeechResults = onSpeechResults;
     Voice.onSpeechError = onSpeechError;
 
@@ -43,6 +43,16 @@ const SelfReport = () => {
   const onSpeechError = (e: { error: any; }) => {
     console.error('Speech recognition error:', e.error);
   };
+  
+  
+         <View style={{ alignItems: 'center', marginVertical: 20 }}>
+          <Button
+            title={isListening ? "Stop Listening" : "Start Listening"}
+            onPress={isListening ? stopListening : startListening}
+          />
+          <Text style={{ marginTop: 20 }}>Result: {result}</Text>
+        </View>
+  */
 
   return (
     <S.Wrapper>
@@ -50,15 +60,7 @@ const SelfReport = () => {
       <S.Container>
         <MainTitle>Would you like to report any issues with your machine?</MainTitle>
         <QuestionTitle>Click the microphone button below and record a brief audio message. Describe the issue you have noticed in as much detail as possible</QuestionTitle>
-        
-        <View style={{ alignItems: 'center', marginVertical: 20 }}>
-          <Button
-            title={isListening ? "Stop Listening" : "Start Listening"}
-            onPress={isListening ? stopListening : startListening}
-          />
-          <Text style={{ marginTop: 20 }}>Result: {result}</Text>
-        </View>
-        
+
         <QuestionTitle>You can add pictures to your report by clicking the camera button below</QuestionTitle>
         <S.CameraButton>
           <CameraIcon width={32} />

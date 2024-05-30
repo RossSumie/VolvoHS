@@ -34,13 +34,23 @@ export const ReportDetails = styled.View`
   justify-content: space-between;
 `
 
+export const ReportDetailsOverview = styled.View`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  background-color: #FFF ;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px;
+`
+
 export const ReportColumn = styled.View`
   display: flex;
   flex-direction: column;
   align-items: left;
   justify-conten: center;
   gap: 16px;
-  padding: 32px;
 `
 export const ReportRow = styled.View`
   display: flex;

@@ -25,30 +25,34 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
     if (route.params?.screenshotUri) {
       const formattedUri = `file://${route.params.screenshotUri}`;
       setOption('screenshotUri', formattedUri);
+      console.log(formattedUri)
     }
   }, [route.params?.screenshotUri]);
 
   const handleSubmit = async () => {
     const payload = {
-      radiator_cleanliness: null, // Assuming no data available
+      radiator_cleanliness: 'NA', // Assuming no data available
       check_coolant_level: options.coolantLevel || "NA",
       check_fan_blades_wear: options.fanWear || "NA",
       check_fan_function: options.fanFunction || "NA",
-      coolant_leaks: null, // Assuming no data available
-      odd_water_pump_sound: null, // Assuming no data available
-      fan_spinning_correctly: null, // Assuming no data available
-      Analysed_coolant_label: null, // Assuming no data available
-      Analysed_radiator_label: null, // Assuming no data available
-      radiator_image_before: null, // Assuming no data available
+      coolant_leaks: 'NA', // Assuming no data available
+      odd_water_pump_sound: 'NA', // Assuming no data available
+      fan_spinning_correctly: 'NA', // Assuming no data available
+      Analysed_coolant_label: 'NA', // Assuming no data available
+      Analysed_radiator_label: 'NA', // Assuming no data available
+      radiator_image_before: '', // Assuming no data available
       coolant_image_before: options.screenshotUri || "", // Use empty string if no URI
-      radiator_image_analyzed: null, // Assuming no data available
-      coolant_image_analyzed: null, // Assuming no data available
-      extra_image: null, // Assuming no data available
+      radiator_image_analyzed: '', // Assuming no data available
+      coolant_image_analyzed: '', // Assuming no data available
+      extra_image: '', // Assuming no data available
       _id: "6655104290012ae1dacace97", // This might be dynamically fetched or set based on context
-      Date: new Date().toISOString(), // This generates current ISO date, adjust as necessary
+      Date: new Date().toISOString(), // This generates current ISO date
       __v: 0 // If necessary
     };
-
+  
+    // Log the payload right before sending it
+    console.log("Submitting the following data to the server:", payload);
+  
     try {
       await postData('inspection/create-inspection-report', payload);
       navigate('Report');
@@ -57,6 +61,7 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
       console.error('Failed to submit data:', error);
     }
   };
+  
 
   return (
     <S.Wrapper>
@@ -73,7 +78,7 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
           <MainTitle>Coolant Level</MainTitle>
           <QuestionTitle>How is the coolant level?</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['Ok', 'Close to minimum', 'Below minimum', 'NA']}
+            labels={['ok', 'close to minimum', 'below minimum', 'NA']}
             name="coolantLevel"
             onChange={value => setOption('coolantLevel', value)}
             selectedValue={options.coolantLevel}
@@ -82,14 +87,14 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
           <MainTitle>Fan</MainTitle>
           <QuestionTitle>Check wear on the fan blades</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['Ok', 'Worn', 'Damaged', 'NA']}
+            labels={['ok', 'worn', 'damaged', 'NA']}
             name="fanWear"
             onChange={value => setOption('fanWear', value)}
             selectedValue={options.fanWear}
           />
           <QuestionTitle>Check the function of the fan</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['Good', 'Poor Airflow', 'Not Spinning', 'NA']}
+            labels={['good', 'poor airflow', 'fan not spinning', 'NA']}
             name="fanFunction"
             onChange={value => setOption('fanFunction', value)}
             selectedValue={options.fanFunction}

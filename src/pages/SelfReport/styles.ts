@@ -8,10 +8,12 @@ export const Wrapper = styled.View`
 
 export const Container = styled.View`
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   padding: 32px;
   width: 100%;
+  justify-content: space-between;
   gap: 16px;
 `;
 
@@ -39,11 +41,34 @@ export const CameraButton = styled.TouchableOpacity`
   
 `
 
+export const TextArea= styled.TextInput`
+  width: 100%;
+  border: 1px;
+`
 export const IconContainer = styled.View`
-  margin-right:16px;
+  gap: 16px;
+  align-items: center;
 `
 export const ButtonText = styled.Text`
   font-size: 20px;
-  font-family: 'VolvoNovum3-Regular'
+  font-family: 'VolvoNovum3-Regular';
 `
 
+export const NextButtonText = styled.Text`
+  font-size: 20px;
+  font-family: 'VolvoNovum3-Light';
+  color: white;
+`
+export const NextButton = styled.TouchableOpacity`
+  height: 60px;
+  width: 100%;
+  background-color: #202a44;
+  border-radius:8px;
+  display: flex;
+  flex-direction:row;
+  gap:8px;
+  justify-content: center;
+  align-items: center;
+  padding: 0 24px;
+  
+`

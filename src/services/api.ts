@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 const API_BASE_URL = 'https://macgyver-express-backend.onrender.com/api/';
 
@@ -46,6 +46,55 @@ export const uploadFile = async (endpoint: string, fileUri: string, fileName: st
     return response.data;
   } catch (error) {
     console.error(`Error uploading file to ${endpoint}:`, error);
+    throw error;
+  }
+};
+
+import { Buffer } from 'buffer';
+
+/**
+ * Converts a base64 string to a Uint8Array.
+ * @param base64 - The base64 string to convert.
+ * @returns A Uint8Array representing the byte array.
+ */
+const base64ToByteArray = async (base64: string) => {
+  // console.log("Base64 Received")
+  // const buffer = Buffer.from(base64, 'base64');
+
+  // console.log("AAA")
+  // return new Uint8Array(buffer);
+
+  const base64Response = await fetch(base64);
+  return base64Response.blob();
+}
+
+// base64  -> File
+
+// base64 -> (ArrayBuffer) -> Blob -> File
+
+// base64 
+export const uploadFileV2 = async (endpoint: string, file: string): Promise<string> => {
+  console.log("File")
+
+  const res = await axios(`data:image/jpg;base64,${file}`)
+  const blob = res.data;
+  console.log("Axios Response", res.data)
+
+  const f = new File([blob], "radiator");
+  console.log("File Converted", f)
+
+  const formData = new FormData();
+  // Send on the formData the File 
+
+  // The radiator+image+before should be a File object
+  formData.append('radiator_image_before', f);
+
+  try {
+    const { data } =  await axios.post<ApiResponse<string>>(`${API_BASE_URL}${endpoint}`, formData);
+    return data.data
+  } catch (error) {
+    console.error(`Error uploading file to ${endpoint}:`, (error as AxiosError).response);
+    console.error(`Error uploading file to ${endpoint}:`, (error as AxiosError).status);
     throw error;
   }
 };

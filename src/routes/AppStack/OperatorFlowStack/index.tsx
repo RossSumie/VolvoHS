@@ -4,7 +4,7 @@ import Home from '../../../pages/Home';
 import DailyCheckUpFlowStack from './DailyCheckUpFlowStack';
 import InspectionFlowStack from './InspectionFlowStack';
 import MachineHealthStatus from '../../../pages/MachineHealthStatus';
-import SelfReport from '../../../pages/SelfReport';
+import SelfReportFlowStack from './SelfReportFlowStack';
 
 export type OperatorStackScreens = {
   Home: undefined;
@@ -25,7 +25,7 @@ const OperatorFlowStack = () => (
     <Screen name="DailyCheckUp" component={DailyCheckUpFlowStack} />
     <Screen name="Inspection" component={InspectionFlowStack} />
     <Screen name="MachineHealthStatus" component={MachineHealthStatus} />
-    <Screen name="SelfReport" component={SelfReport} />
+    <Screen name="SelfReport" component={SelfReportFlowStack} />
   </Navigator>
 );
 

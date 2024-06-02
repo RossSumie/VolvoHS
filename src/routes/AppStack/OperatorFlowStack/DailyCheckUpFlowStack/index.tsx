@@ -2,7 +2,6 @@ import React from 'react';
 import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
 import DCPageOne from '../../../../pages/DailyCheckUp/DCPageOne';
 import DCPageTwo from '../../../../pages/DailyCheckUp/DCPageTwo';
-import RadiatorAR from '../../../../pages/Inspection/RadiatorAR';
 import DCPageThree from '../../../../pages/DailyCheckUp/DCPageThree';
 import DCReport from '../../../../pages/DailyCheckUp/Report';
 import Home from '../../../../pages/Home';

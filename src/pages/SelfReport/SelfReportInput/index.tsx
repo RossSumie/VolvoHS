@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text } from 'react-native';
-import Voice from 'react-native-voice';
 import * as S from './styles';
-import Header from '../../components/Common/Header';
-import MainTitle from '../../components/Common/MainTitle';
+import Header from '../../../components/Common/Header';
+import MainTitle from '../../../components/Common/MainTitle';
 import { useNavigation } from '@react-navigation/core';
-import { OperatorStackScreensProps } from '../../routes/AppStack/OperatorFlowStack';
-import QuestionTitle from '../../components/Common/QuestionTitle';
-import NextIcon from '../../assets/icons/Symbol_Arrow right_White.svg';
-import CameraIcon from '../../assets/icons/Device_Camera_White.svg';
+import QuestionTitle from '../../../components/Common/QuestionTitle';
+import NextIcon from '../../../assets/icons/Symbol_Arrow right_White.svg';
+import CameraIcon from '../../../assets/icons/Device_Camera_White.svg';
+import { SelfReportStackScreensProps } from '../../../routes/AppStack/OperatorFlowStack/SelfReportFlowStack';
 
-const SelfReport = () => {
-  const { navigate } = useNavigation<OperatorStackScreensProps>();
+const SelfReportInput = () => {
+  const { navigate } = useNavigation<SelfReportStackScreensProps>();
   const [result, setResult] = useState('');
   return (
     <S.Wrapper>
@@ -25,7 +23,7 @@ const SelfReport = () => {
           <CameraIcon width={32} />
         </S.CameraButton>
         </S.IconContainer>
-        <S.NextButton>
+        <S.NextButton onPress={()=> navigate('SelfReportResult')}>
             <S.NextButtonText>Next</S.NextButtonText>
             <NextIcon width={24} />
           </S.NextButton>
@@ -34,4 +32,4 @@ const SelfReport = () => {
   );
 };
 
-export default SelfReport;
+export default SelfReportInput;

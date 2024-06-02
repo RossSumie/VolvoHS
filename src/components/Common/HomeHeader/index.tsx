@@ -3,13 +3,14 @@ import * as S from './styles';
 import { useNavigation } from '@react-navigation/core';
 import LogoImg from '../../../assets/icons/Volvo-Spread-Word-Mark-Black.svg';
 import BackIcon from '../../../assets/icons/Symbol_Arrow left_Black.svg';
+import InfoIcon from '../../../assets/icons/Symbol_Info_Black.svg'
 
 
-const HomeHeader = () => {
+const Header = () => {
   const navigate = useNavigation();
   return (
     <S.Wrapper>
-            <S.Button onPress={() => navigate.goBack()}>
+            <S.Button>
                 <BackIcon width={32}/>
             </S.Button>
             <S.LogoContainer>
@@ -22,4 +23,4 @@ const HomeHeader = () => {
   );
 };
 
-export default HomeHeader;
+export default Header;

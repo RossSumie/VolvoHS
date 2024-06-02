@@ -17,6 +17,7 @@
     "@types/styled-components": "^5.1.34",
     "@viro-community/react-viro": "^2.41.0",
     "axios": "^1.7.2",
+    "buffer": "^6.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "0.73.3",
@@ -28,6 +29,7 @@
     "react-native-svg": "^15.3.0",
     "react-native-tab-view": "^3.5.2",
     "react-native-voice": "^0.3.0",
+    "rn-fetch-blob": "^0.12.0",
     "styled-components": "^6.1.11"
   },
   "devDependencies": {

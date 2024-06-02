@@ -10,6 +10,7 @@ import INSIcon from '../../assets/icons/Safety_Risk assessment_Black.svg'
 import MHIcon from '../../assets/icons/Finance_Line chart down_Black.svg'
 import TGIcon from '../../assets/icons/Action_Future tech_Black.svg'
 import SRIcon from '../../assets/icons/World_Ongoing chat_Black.svg'
+import HomeHeader from '../../components/Common/Header';
 
 
 const Home = () => {
@@ -18,7 +19,7 @@ const Home = () => {
 
   return (
     <S.Wrapper>
-      <Header/>
+      <HomeHeader/>
             <S.Container>
               <MainTitle>How can we assist you today?</MainTitle>
               <S.MenuButton onPress={()=> navigate('DailyCheckUp')}>
@@ -53,7 +54,7 @@ const Home = () => {
                   Machine Health Status
                 </S.ButtonText>
               </S.MenuButton>
-              <S.MenuButton>
+              <S.MenuButton disabled={true}>
               <S.IconContainer>
                   <TGIcon width = {32}/>
                 </S.IconContainer>

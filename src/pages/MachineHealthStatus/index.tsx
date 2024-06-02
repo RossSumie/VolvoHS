@@ -7,10 +7,14 @@ import ReportInformation from '../../components/ReportInformation';
 import Circle from '../../components/Common/Circle';
 import Exclamation from '../../assets/icons/exclamation.svg'
 import MainTitle from '../../components/Common/MainTitle';
+import { useNavigation } from '@react-navigation/native';
+import { OperatorStackScreensProps } from '../../routes/AppStack/OperatorFlowStack';
 
 const MachineHealthStatus = () => {
   const [activeTab, setActiveTab] = useState('tab1');
   const [progress, setProgress] = useState(0);
+  const { navigate } = useNavigation<OperatorStackScreensProps>();
+
 
   useEffect(() => {
     let intervalId: string | number | NodeJS.Timeout | undefined;
@@ -132,7 +136,7 @@ const MachineHealthStatus = () => {
                 <S.ReportValue>Operator reports and cabin sensors indicate the air conditioning system is not working</S.ReportValue>
               </S.ReportRow>  
               </S.ReportColumn>
-              <S.InspectionRedirection>
+              <S.InspectionRedirection onPress={()=> navigate('Inspection')}>
                   <S.InspectionRedirectionText>Do inspection</S.InspectionRedirectionText>
                 </S.InspectionRedirection>
             </S.ReportDetails>
@@ -150,7 +154,7 @@ const MachineHealthStatus = () => {
                 <S.ReportValue>Sensors and operator reports indicate possible excessive vibrations during engine startup</S.ReportValue>
               </S.ReportRow>  
               </S.ReportColumn>
-              <S.InspectionRedirection>
+              <S.InspectionRedirection onPress={()=> navigate('Inspection')}>
                   <S.InspectionRedirectionText>Do inspection</S.InspectionRedirectionText>
                 </S.InspectionRedirection>
             </S.ReportDetails>

@@ -18,12 +18,13 @@ export const Container = styled.View`
 export const MenuButton = styled.TouchableOpacity`
   height: 60px;
   width: 100%;
-  background-color: white;
+  background-color: ${props => props.disabled ? '#E1DFDD' : 'white'};
   border-radius:8px;
   display: flex;
   flex-direction:row;
   align-items:center;
   padding: 0 24px;
+  opacity: ${props => props.disabled ? 0.5 : 1};
   
 `
 

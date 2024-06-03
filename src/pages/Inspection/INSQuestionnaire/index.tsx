@@ -28,58 +28,46 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
       console.log(formattedUri);
     }
   }, [route.params?.screenshotUri]);
-
   const handleSubmit = async () => {
     try {
       const payload = new FormData();
-      payload.append('radiator_cleanliness', 'NA');
+      payload.append('radiator_cleanliness', "NA");
       payload.append('check_coolant_level', options.coolantLevel || 'NA');
       payload.append('check_fan_blades_wear', options.fanWear || 'NA');
       payload.append('check_fan_function', options.fanFunction || 'NA');
-      payload.append('coolant_leaks', 'NA');
-      payload.append('odd_water_pump_sound', 'NA');
-      payload.append('fan_spinning_correctly', 'NA');
-      payload.append('Analysed_coolant_label', 'NA');
-      payload.append('Analysed_radiator_label', 'NA');
+      payload.append('coolant_leaks', "NA");
+      payload.append('odd_water_pump_sound', "NA");
+      payload.append('fan_spinning_correctly', "NA");
+      payload.append('Analysed_coolant_label', "NA");
+      payload.append('Analysed_radiator_label', "NA");
       payload.append('radiator_image_before', {
         uri: options.screenshotUri,
         type: 'image/jpeg',
         name: 'radiator_image_before.jpg',
       });
-      payload.append('coolant_image_before', 'NA');
-      payload.append('radiator_image_analyzed', 'NA');
-      payload.append('coolant_image_analyzed', 'NA');
-      payload.append('extra_image', 'NA');
+      payload.append('coolant_image_before', "NA");
+      payload.append('radiator_image_analyzed', "NA");
+      payload.append('coolant_image_analyzed', "NA");
+      payload.append('extra_image', "NA");
       payload.append('Date', new Date().toISOString());
       payload.append('__v', 0);
-
+  
       console.log('Payload:', payload);
-
+  
       const response = await api.post('/inspection/create-inspection-report', payload, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+  
+      const { _id } = response.data; // Get the generated _id from the response
       console.log('Response:', response.data);
-      navigate('Report');
+      navigate('Report', { id: _id }); // Pass the _id to the Report component
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log('Error response:', error.response.data);
-        console.log('Error status:', error.response.status);
-        console.log('Error headers:', error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.log('Error request:', error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error message:', error.message);
-      }
-      console.log('Error config:', error.config);
+      console.error('Failed to submit data:', error);
     }
   };
+  
 
   return (
     <S.Wrapper>
@@ -91,7 +79,7 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
           <S.CameraButton onPress={handleCameraPress}>
             <CameraIcon width={32} />
           </S.CameraButton>
-          {options.screenshotUri ? <Image source={{ uri: options.screenshotUri }} style={{ width: screenWidth - 40, height: 300 }} /> : null}
+          {options.screenshotUri ? <Image source={{ uri: options.screenshotUri }} style={{ width: screenWidth -80, height: 400 }} /> : null}
           <S.Gap />
           <MainTitle>Coolant Level</MainTitle>
           <QuestionTitle>How is the coolant level?</QuestionTitle>
@@ -117,6 +105,9 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
             onChange={value => setOption('fanFunction', value)}
             selectedValue={options.fanFunction}
           />
+          <S.Gap/>
+          <S.Gap/>
+          <S.Gap/>
           <S.NextButton onPress={handleSubmit}>
             <S.NextButtonText>Next</S.NextButtonText>
             <NextIcon width={24} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Image } from 'react-native';
 import * as S from './styles';
 import Header from '../../../components/Common/Header';
@@ -7,31 +7,49 @@ import { useNavigation } from '@react-navigation/core';
 import { InspectionStackScreensProps } from '../../../routes/AppStack/OperatorFlowStack/InspectionFlowStack';
 import NextIcon from '../../../assets/icons/Symbol_Arrow right_White.svg';
 import ReportInformation from '../../../components/ReportInformation';
-import { useRadioButton } from '../../../hooks/radioButtonContext'; // Ensure path is correct
+import { useRadioButton } from '../../../hooks/radioButtonContext';
+import { api } from '../../../services/api'; // Use the api instance you set up
 
-const Report = () => {
-  const screenWidth = Dimensions.get('window').width;
+const Report: React.FC<{ route: any }> = ({ route }) => {
   const { options, clearOptions } = useRadioButton();
+  const screenWidth = Dimensions.get('window').width;
   const { navigate } = useNavigation<InspectionStackScreensProps>();
+  const [analyzedImageUrl, setAnalyzedImageUrl] = useState<string | null>(null);
 
   const handleSend = () => {
-    clearOptions(); // Clear the context
-    navigate('Home'); 
+    clearOptions(); 
+    navigate('Home');
   };
+
+  useEffect(() => {
+    const fetchAnalyzedImage = async () => {
+      try {
+        const id = route.params?.id; // Get the id passed as a route parameter
+        if (id) {
+          const response = await api.get(`/inspection/inspection-report/${id}`);
+          setAnalyzedImageUrl(response.data.radiator_image_analyzed); // Assuming the API response contains the radiator_image_analyzed field
+        }
+      } catch (error) {
+        console.error('Failed to fetch analyzed image:', error);
+      }
+    };
+
+    fetchAnalyzedImage();
+  }, [route.params?.id]);
 
   return (
     <S.Wrapper>
-      <Header/>
+      <Header />
       <S.Container>
-          <S.PageTitle>Inspection Report</S.PageTitle>
-          <ReportInformation/>
+        <S.PageTitle>Inspection Report</S.PageTitle>
+        <ReportInformation />
         <S.QuestionContainer>
-        <MainTitle>Inspected Concern</MainTitle>
+          <MainTitle>Inspected Concern</MainTitle>
           <S.ReportValue>Possible problems in cooling system</S.ReportValue>
         </S.QuestionContainer>
         <S.QuestionContainer>
-        <MainTitle>Reason for Concern</MainTitle>
-          <S.ReportValue>We have noticed repeated abnormal temperature increases without enviromental or workload causes</S.ReportValue>
+          <MainTitle>Reason for Concern</MainTitle>
+          <S.ReportValue>We have noticed repeated abnormal temperature increases without environmental or workload causes</S.ReportValue>
         </S.QuestionContainer>
         <MainTitle>Raw Images</MainTitle>
         <S.Report>
@@ -39,7 +57,7 @@ const Report = () => {
             key.includes('screenshotUri') && value && (
               <S.ReportDetails key={key}>
                 <S.RawImageContainer>
-                  <Image source={{ uri: value }} style={{ width: 200, height: 200 }} resizeMode="contain" />
+                  <Image source={{ uri: value }} style={{ width: screenWidth -80, height: 400}} resizeMode="contain" />
                 </S.RawImageContainer>
               </S.ReportDetails>
             )
@@ -54,7 +72,7 @@ const Report = () => {
                   <S.ReportLabel>{key.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase())}:</S.ReportLabel>
                 </S.ReportColumn>
                 <S.ReportColumn>
-                  <S.ReportValue>{value || 'N/A'}</S.ReportValue>
+                  <S.ReportValue>{value.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, str => str.toUpperCase()) || 'N/A'}</S.ReportValue>
                 </S.ReportColumn>
               </S.ReportDetails>
             )
@@ -62,19 +80,17 @@ const Report = () => {
         </S.Report>
         <MainTitle>Analyzed images</MainTitle>
         <S.Report>
-          {Object.entries(options).map(([key, value]) => (
-            key.includes('screenshotUri') && value && (
-              <S.ReportDetails key={key}>
-                <S.RawImageContainer>
-                  <Image source={{ uri: value }} style={{ width: 200, height: 200 }} resizeMode="contain" />
-                </S.RawImageContainer>
-              </S.ReportDetails>
-            )
-          ))}
+          {analyzedImageUrl && (
+            <S.ReportDetails>
+              <S.RawImageContainer>
+                <Image source={{ uri: analyzedImageUrl }} style={{ width: screenWidth -80, height: 400 }} resizeMode="contain" />
+              </S.RawImageContainer>
+            </S.ReportDetails>
+          )}
         </S.Report>
         <S.NextButton onPress={handleSend}>
           <S.NextButtonText>Send</S.NextButtonText>
-          <NextIcon width={24}/>
+          <NextIcon width={24} />
         </S.NextButton>
       </S.Container>
     </S.Wrapper>

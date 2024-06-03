@@ -27,7 +27,7 @@ const CustomRadioButtonGroup: React.FC<RadioButtonGroupProps> = ({ labels, name,
               />
             </RadioButton>
           </RadioButtonContainer>
-          <Label>{label}</Label>
+          <Label>{label.replace(/^./, str => str.toUpperCase())}</Label>
         </RadioButtonWrapper>
       ))}
     </RadioButtonGroup>

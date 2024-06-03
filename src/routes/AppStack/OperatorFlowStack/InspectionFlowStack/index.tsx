@@ -10,7 +10,7 @@ type InspectionStackScreens = {
   Selection:undefined;
   INSQuestionnaire:{screenshotUri:string };
   RadiatorAR: undefined;
-  Report: undefined;
+  Report: { id: string };
   Home: undefined;
 };
 

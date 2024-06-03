@@ -15,7 +15,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import RNFetchBlob from 'rn-fetch-blob';
 
 type RootStackParamList = {
-  INSQuestionnaire: { file: string, screenshotUri: string };
+  INSQuestionnaire: { screenshotUri: string };
 };
 
 const InitialScene = () => {
@@ -59,22 +59,25 @@ export const RadiatorAR = () => {
   const navigatorRef = useRef<ViroARSceneNavigator>(null);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const takeScreenshot = async() => {
-    try { 
-      const screenshot = await navigatorRef.current?._takeScreenshot("screenshot", true)
-      // Url of the screenshot
-      // URI -> File 
-      const file = await RNFetchBlob.fs.readFile(screenshot.url, 'base64')
-      navigation.navigate('INSQuestionnaire', { file: file as string, screenshotUri:screenshot.url });
-    } catch(e) {
-      console.log("Error On opening", e)
-    }
+  // const takeScreenshot = async() => {
+  //   try { 
+  //     const screenshot = await navigatorRef.current?._takeScreenshot("screenshot", true)
+  //     // Url of the screenshot
+  //     // URI -> File 
+  //     const file = await RNFetchBlob.fs.readFile(screenshot.url, 'base64')
+  //     navigation.navigate('INSQuestionnaire', { file: file as string, screenshotUri:screenshot.url });
+  //   } catch(e) {
+  //     console.log("Error On opening", e)
+  //   }
+  // };
 
-    // navigatorRef.current?._takeScreenshot("screenshot", true).then((result) => {
-    //     console.log("Screenshot URL:", result.url); 
-    // }).catch((error) => {
-    //     console.error("Failed to take screenshot: ", error);
-    // });
+  const takeScreenshot = () => {
+    navigatorRef.current?._takeScreenshot("screenshot", true).then((result) => {
+        console.log("Screenshot URL:", result.url); 
+        navigation.navigate('INSQuestionnaire', { screenshotUri: result.url });
+    }).catch((error) => {
+        console.error("Failed to take screenshot: ", error);
+    });
   };
 
   return (

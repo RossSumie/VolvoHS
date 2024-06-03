@@ -10,7 +10,7 @@ import CameraIcon from '../../../assets/icons/Device_Camera_White.svg';
 import CustomRadioButtonGroup from '../../../components/Common/RadioButtonGroup';
 import { useRadioButton } from '../../../hooks/radioButtonContext';
 import QuestionTitle from '../../../components/Common/QuestionTitle';
-import { postData, uploadFile, uploadFileV2 } from '../../../services/api'
+import { api } from '../../../services/api';
 
 const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
   const screenWidth = Dimensions.get('window').width;
@@ -31,24 +31,53 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
 
   const handleSubmit = async () => {
     try {
-      let uploadedImageUrl = '';
-      uploadedImageUrl = await uploadFileV2('inspection/create-inspection-report', route.params.file);
+      const payload = new FormData();
+      payload.append('radiator_cleanliness', 'NA');
+      payload.append('check_coolant_level', options.coolantLevel || 'NA');
+      payload.append('check_fan_blades_wear', options.fanWear || 'NA');
+      payload.append('check_fan_function', options.fanFunction || 'NA');
+      payload.append('coolant_leaks', 'NA');
+      payload.append('odd_water_pump_sound', 'NA');
+      payload.append('fan_spinning_correctly', 'NA');
+      payload.append('Analysed_coolant_label', 'NA');
+      payload.append('Analysed_radiator_label', 'NA');
+      payload.append('radiator_image_before', {
+        uri: options.screenshotUri,
+        type: 'image/jpeg',
+        name: 'radiator_image_before.jpg',
+      });
+      payload.append('coolant_image_before', 'NA');
+      payload.append('radiator_image_analyzed', 'NA');
+      payload.append('coolant_image_analyzed', 'NA');
+      payload.append('extra_image', 'NA');
+      payload.append('Date', new Date().toISOString());
+      payload.append('__v', 0);
 
-      const payload = {
-        radiator_cleanliness: 'NA',
-        check_coolant_level: options.coolantLevel || "NA",
-        check_fan_blades_wear: options.fanWear || "NA",
-        check_fan_function: options.fanFunction || "NA",
-        coolant_image_before: uploadedImageUrl, // Use URL returned from the server after image upload
-        _id: "6655104290012ae1dacace97",
-        Date: new Date().toISOString(),
-      };
+      console.log('Payload:', payload);
 
-      //await postData('inspection/create-inspection-report', payload);
-      console.log('Data submitted successfully');
+      const response = await api.post('/inspection/create-inspection-report', payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log('Response:', response.data);
       navigate('Report');
     } catch (error) {
-      console.error('Failed to submit data:', error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log('Error response:', error.response.data);
+        console.log('Error status:', error.response.status);
+        console.log('Error headers:', error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log('Error request:', error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error message:', error.message);
+      }
+      console.log('Error config:', error.config);
     }
   };
 

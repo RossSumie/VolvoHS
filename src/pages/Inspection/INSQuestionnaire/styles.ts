@@ -39,6 +39,20 @@ export const NextButton = styled.TouchableOpacity`
   padding: 0 24px;
   
 `
+
+export const PickerButton = styled.TouchableOpacity`
+  background-color: #202a44;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  align-items: center;
+`;
+
+export const PickerButtonText = styled.Text`
+  color: white;
+  font-size: 16px;
+`;
+
 export const CameraButton = styled.TouchableOpacity`
   height: 60px;
   width: 60px;

@@ -17,9 +17,8 @@ const DCReport = () => {
 
   const handleSend = () => {
     clearOptions(); // Clear the context
-    navigate('Home'); // Navigate after clearing
+    navigate('NotificationHome'); // Navigate after clearing
   };
-
 
   return (
     <S.Wrapper>
@@ -28,18 +27,18 @@ const DCReport = () => {
         <S.PageTitle>Daily Check Up Report</S.PageTitle>
         <ReportInformation/>
         <S.Report>
-        <MainTitle>Report Log</MainTitle>
+          <MainTitle>Report Log</MainTitle>
           {Object.entries(options).map(([key, value]) => (
-            <S.ReportDetails>
-            <S.ReportColumn key={value}>
-              <S.ReportLabel>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:</S.ReportLabel>
-            </S.ReportColumn>
-            <S.ReportColumn>
-              <S.ReportValue>{value || 'N/A'}</S.ReportValue>
-            </S.ReportColumn>
+            <S.ReportDetails key={key}>
+              <S.ReportColumn>
+                <S.ReportLabel>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:</S.ReportLabel>
+              </S.ReportColumn>
+              <S.ReportColumn>
+                <S.ReportValue>{value || 'N/A'}</S.ReportValue>
+              </S.ReportColumn>
             </S.ReportDetails>
           ))}
-          </S.Report>
+        </S.Report>
         <S.NextButton onPress={handleSend}>
           <S.NextButtonText>Send</S.NextButtonText>
           <NextIcon width={24}/>

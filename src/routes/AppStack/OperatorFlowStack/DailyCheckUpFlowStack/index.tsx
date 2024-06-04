@@ -4,14 +4,14 @@ import DCPageOne from '../../../../pages/DailyCheckUp/DCPageOne';
 import DCPageTwo from '../../../../pages/DailyCheckUp/DCPageTwo';
 import DCPageThree from '../../../../pages/DailyCheckUp/DCPageThree';
 import DCReport from '../../../../pages/DailyCheckUp/Report';
-import Home from '../../../../pages/Home';
+import NotificationHome from '../../../../pages/Home/NotificationHome';
 
 type DailyCheckUpStackScreens = {
   DCPageOne: undefined;
   DCPageTwo:{ screenshotUri: string };
   DCPageThree: undefined;
   DCReport : undefined;
-  Home: undefined;
+  NotificationHome: undefined;
 };
 
 export type DailyCheckUpStackScreensProps = StackNavigationProp<DailyCheckUpStackScreens>;
@@ -25,7 +25,7 @@ const DailyCheckUpFlowStack = () => (
     <Screen name="DCPageTwo" component={DCPageTwo} initialParams={{ screenshotUri: '' }}/>
     <Screen name="DCPageThree" component={DCPageThree} />
     <Screen name="DCReport" component={DCReport} />
-    <Screen name="Home" component={Home} />
+    <Screen name="NotificationHome" component={NotificationHome} />
 
   </Navigator>
 );

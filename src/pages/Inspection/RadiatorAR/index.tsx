@@ -67,7 +67,7 @@ export const RadiatorAR = () => {
         setCurrentText("Press the camera button below to take a picture centralizing the radiator on the screen");
         setMarkerVisible(false);
         setStep(2);
-      }, 7000);
+      }, 5000);
     }
     return () => clearTimeout(timer);
   }, [step]);
@@ -83,7 +83,7 @@ export const RadiatorAR = () => {
 
   const handleAnchorFound = () => {
     if (step === 0) {
-      setCurrentText("Keep the image pointed to the radiator for 7 seconds. Don't move your camera");
+      setCurrentText("Keep the image pointed to the radiator for 3 seconds. Don't move your camera");
       setStep(1);
     }
   };

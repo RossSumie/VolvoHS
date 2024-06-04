@@ -7,6 +7,7 @@ import {
   ViroARTrackingTargets,
   ViroARImageMarker,
   ViroImage,
+  ViroNode,
 } from "@viro-community/react-viro";
 import CameraIcon from '../../../assets/icons/Device_Camera_White.svg';
 import BackIcon from '../../../assets/icons/Symbol_Arrow left_Black.svg';
@@ -17,7 +18,7 @@ type RootStackParamList = {
   INSQuestionnaire: { screenshotUri: string };
 };
 
-const InitialScene = ({ onAnchorFound }: { onAnchorFound: () => void }) => {
+const InitialScene = ({ onAnchorFound, markerVisible }: { onAnchorFound: () => void, markerVisible: boolean }) => {
 
   ViroARTrackingTargets.createTargets({
     radiatorImage: {
@@ -30,29 +31,25 @@ const InitialScene = ({ onAnchorFound }: { onAnchorFound: () => void }) => {
   return (
     <ViroARScene>
       <ViroARImageMarker target="radiatorImage" onAnchorFound={onAnchorFound}>
-        <ViroText
-          text="Radiator"
-          scale={[0.15, 0.15, 0.15]}
-          rotation={[-90, 0, 0]}
-          position={[0.02, 0, -0.11]}
-          style={styles.MachinePartTextStyle}
-        />
-        <ViroImage
-          source={require('../../../assets/images/grid.png')}
-          position={[0.02, 0, -0.03]}
-          scale={[0.1, 0.15, 0.12]}
-          width={1}
-          height={1}
-          rotation={[-90, 0, 0]}
-        />
+        <ViroNode visible={markerVisible}>
+          <ViroText
+            text="Radiator"
+            scale={[0.15, 0.15, 0.15]}
+            rotation={[-90, 0, 0]}
+            position={[0.02, 0, -0.11]}
+            style={styles.MachinePartTextStyle}
+          />
+          <ViroImage
+            source={require('../../../assets/images/grid.png')}
+            position={[0.02, 0, -0.03]}
+            scale={[0.1, 0.15, 0.12]}
+            width={1}
+            height={1}
+            rotation={[-90, 0, 0]}
+          />
+        </ViroNode>
       </ViroARImageMarker>
     </ViroARScene>
-  );
-};
-
-const EmptyScene = () => {
-  return (
-    <ViroARScene />
   );
 };
 
@@ -61,14 +58,14 @@ export const RadiatorAR = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [currentText, setCurrentText] = useState("Please point your camera to the radiator");
   const [step, setStep] = useState(0);
-  const [timeExceeded, setTimeExceeded] = useState(false);
+  const [markerVisible, setMarkerVisible] = useState(true);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (step === 1) {
       timer = setTimeout(() => {
         setCurrentText("Press the camera button below to take a picture centralizing the radiator on the screen");
-        setTimeExceeded(true);
+        setMarkerVisible(false);
         setStep(2);
       }, 7000);
     }
@@ -97,7 +94,7 @@ export const RadiatorAR = () => {
         ref={navigatorRef}
         autofocus={true}
         initialScene={{
-          scene: timeExceeded ? EmptyScene : () => <InitialScene onAnchorFound={handleAnchorFound} />,
+          scene: () => <InitialScene onAnchorFound={handleAnchorFound} markerVisible={markerVisible} />,
         }}
       />
       <View style={styles.controlBar}>

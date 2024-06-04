@@ -28,6 +28,11 @@ export const Report = styled.View`
   gap: 24px;
 `
 
+export const LoadingWheelView = styled.View`
+  width: 100%;
+  height: 100px;
+
+`
 
 export const ReportDetails = styled.View`
   display: flex;

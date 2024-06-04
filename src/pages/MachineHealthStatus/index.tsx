@@ -158,7 +158,6 @@ const MachineHealthStatus = () => {
                   <S.InspectionRedirectionText>Do inspection</S.InspectionRedirectionText>
                 </S.InspectionRedirection>
             </S.ReportDetails>
-            <MainTitle>Analyzes Images</MainTitle>
             </S.ContentContainer>
           )}
       </S.Container>

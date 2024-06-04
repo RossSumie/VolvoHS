@@ -28,7 +28,9 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
       console.log(formattedUri);
     }
   }, [route.params?.screenshotUri]);
+
   const handleSubmit = async () => {
+    navigate('Loading'); 
     try {
       const payload = new FormData();
       payload.append('radiator_cleanliness', "NA");
@@ -52,16 +54,13 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
       payload.append('Date', new Date().toISOString());
       payload.append('__v', 0);
   
-      console.log('Payload:', payload);
-  
       const response = await api.post('/inspection/create-inspection-report', payload, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
   
-      const { _id } = response.data; // Get the generated _id from the response
-      console.log('Response:', response.data);
+      const { _id } = response.data;
       navigate('Report', { id: _id }); // Pass the _id to the Report component
     } catch (error) {
       console.error('Failed to submit data:', error);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Image } from 'react-native';
+import { Dimensions, Image, ActivityIndicator } from 'react-native';
 import * as S from './styles';
 import Header from '../../../components/Common/Header';
 import MainTitle from '../../../components/Common/MainTitle';
@@ -15,22 +15,25 @@ const Report: React.FC<{ route: any }> = ({ route }) => {
   const screenWidth = Dimensions.get('window').width;
   const { navigate } = useNavigation<InspectionStackScreensProps>();
   const [analyzedImageUrl, setAnalyzedImageUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true); // State to track loading
 
   const handleSend = () => {
-    clearOptions(); 
+    clearOptions();
     navigate('Home');
   };
 
   useEffect(() => {
     const fetchAnalyzedImage = async () => {
       try {
-        const id = route.params?.id; // Get the id passed as a route parameter
+        const id = route.params?.id;
         if (id) {
           const response = await api.get(`/inspection/inspection-report/${id}`);
-          setAnalyzedImageUrl(response.data.radiator_image_analyzed); // Assuming the API response contains the radiator_image_analyzed field
+          setAnalyzedImageUrl(response.data.radiator_image_analyzed);
         }
       } catch (error) {
         console.error('Failed to fetch analyzed image:', error);
+      } finally {
+        setIsLoading(false); // Set loading to false after fetching
       }
     };
 
@@ -57,7 +60,7 @@ const Report: React.FC<{ route: any }> = ({ route }) => {
             key.includes('screenshotUri') && value && (
               <S.ReportDetails key={key}>
                 <S.RawImageContainer>
-                  <Image source={{ uri: value }} style={{ width: screenWidth -80, height: 400}} resizeMode="contain" />
+                  <Image source={{ uri: value }} style={{ width: screenWidth - 80, height: 400 }} resizeMode="contain" />
                 </S.RawImageContainer>
               </S.ReportDetails>
             )
@@ -78,16 +81,17 @@ const Report: React.FC<{ route: any }> = ({ route }) => {
             )
           ))}
         </S.Report>
-        <MainTitle>Analyzed images</MainTitle>
-        <S.Report>
-          {analyzedImageUrl && (
-            <S.ReportDetails>
-              <S.RawImageContainer>
-                <Image source={{ uri: analyzedImageUrl }} style={{ width: screenWidth -80, height: 400 }} resizeMode="contain" />
-              </S.RawImageContainer>
-            </S.ReportDetails>
-          )}
-        </S.Report>
+            {analyzedImageUrl && (
+            <>
+              <MainTitle>Analyzed images</MainTitle>
+              <S.ReportDetails>
+                <S.RawImageContainer>
+                  <Image source={{ uri: analyzedImageUrl }} style={{ width: screenWidth - 80, height: 400 }} resizeMode="contain" />
+                </S.RawImageContainer>
+              </S.ReportDetails>
+              </>
+            )
+          }
         <S.NextButton onPress={handleSend}>
           <S.NextButtonText>Send</S.NextButtonText>
           <NextIcon width={24} />

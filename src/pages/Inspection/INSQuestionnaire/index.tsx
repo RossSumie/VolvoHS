@@ -30,7 +30,7 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
   }, [route.params?.screenshotUri]);
 
   const handleSubmit = async () => {
-    navigate('Loading'); 
+    navigate('Loading');
     try {
       const payload = new FormData();
       payload.append('radiator_cleanliness', "NA");
@@ -53,20 +53,40 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
       payload.append('extra_image', "NA");
       payload.append('Date', new Date().toISOString());
       payload.append('__v', 0);
-  
+
       const response = await api.post('/inspection/create-inspection-report', payload, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-  
+
       const { _id } = response.data;
       navigate('Report', { id: _id }); // Pass the _id to the Report component
     } catch (error) {
       console.error('Failed to submit data:', error);
     }
   };
-  
+
+  const coolantLevelOptions = [
+    { label: 'ok', value: 'ok' },
+    { label: 'close to minimum', value: 'close_to_minimum' },
+    { label: 'below minimum', value: 'below_minimum' },
+    { label: 'NA', value: 'na' },
+  ];
+
+  const fanWearOptions = [
+    { label: 'ok', value: 'ok' },
+    { label: 'worn', value: 'worn' },
+    { label: 'damaged', value: 'damaged' },
+    { label: 'NA', value: 'na' },
+  ];
+
+  const fanFunctionOptions = [
+    { label: 'good', value: 'good' },
+    { label: 'poor airflow', value: 'poor_airflow' },
+    { label: 'fan not spinning', value: 'fan_not_spinning' },
+    { label: 'NA', value: 'na' },
+  ];
 
   return (
     <S.Wrapper>
@@ -78,35 +98,37 @@ const INSQuestionnaire: React.FC<{ route: any }> = ({ route }) => {
           <S.CameraButton onPress={handleCameraPress}>
             <CameraIcon width={32} />
           </S.CameraButton>
-          {options.screenshotUri ? <Image source={{ uri: options.screenshotUri }} style={{ width: screenWidth -80, height: 400 }} /> : null}
+          {options.screenshotUri ? (
+            <Image source={{ uri: options.screenshotUri }} style={{ width: screenWidth - 80, height: 400 }} />
+          ) : null}
           <S.Gap />
           <MainTitle>Coolant Level</MainTitle>
           <QuestionTitle>How is the coolant level?</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['ok', 'close to minimum', 'below minimum', 'NA']}
+            options={coolantLevelOptions}
             name="coolantLevel"
-            onChange={value => setOption('coolantLevel', value)}
+            onChange={(value) => setOption('coolantLevel', value)}
             selectedValue={options.coolantLevel}
           />
           <S.Gap />
           <MainTitle>Fan</MainTitle>
           <QuestionTitle>Check wear on the fan blades</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['ok', 'worn', 'damaged', 'NA']}
+            options={fanWearOptions}
             name="fanWear"
-            onChange={value => setOption('fanWear', value)}
+            onChange={(value) => setOption('fanWear', value)}
             selectedValue={options.fanWear}
           />
           <QuestionTitle>Check the function of the fan</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['good', 'poor airflow', 'fan not spinning', 'NA']}
+            options={fanFunctionOptions}
             name="fanFunction"
-            onChange={value => setOption('fanFunction', value)}
+            onChange={(value) => setOption('fanFunction', value)}
             selectedValue={options.fanFunction}
           />
-          <S.Gap/>
-          <S.Gap/>
-          <S.Gap/>
+          <S.Gap />
+          <S.Gap />
+          <S.Gap />
           <S.NextButton onPress={handleSubmit}>
             <S.NextButtonText>Next</S.NextButtonText>
             <NextIcon width={24} />

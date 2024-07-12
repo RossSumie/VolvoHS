@@ -16,40 +16,44 @@ const DCPageThree = () => {
   const { navigate } = useNavigation<DailyCheckUpStackScreensProps>();
   const { options, setOption } = useRadioButton();
 
-  // Handlers that update specific options using the setOption function
   const handlesoundChange = (value: string) => {
     setOption('sound', value);
   };
 
-  // Extracting specific option values from the options state
-  const soundOption = options['sound'] || '';
+  const soundOptions = [
+    { label: 'Yes', value: 'yes' },
+    { label: 'Possibly', value: 'possibly' },
+    { label: 'No', value: 'no' },
+    { label: 'NA', value: 'na' },
+  ];
 
   return (
     <S.Wrapper>
-      <Header/>
+      <Header /> 
       <S.Container>
         <S.QuestionContainer>
-          <Progress.Bar 
+          <Progress.Bar
             progress={0.9}
             height={8}
             width={screenWidth - 56}
             animated={true}
             unfilledColor={'#A7ABA9'}
-            borderWidth={0} 
-            color={'#2D606F'}/>
-          <S.Gap/>
+            borderWidth={0}
+            color={'#2D606F'}
+          />
+          <S.Gap />
           <MainTitle>Start up your engine</MainTitle>
           <QuestionTitle>Are there any abnormal sounds?</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['Yes', 'Possibly', 'No', 'NA']}
+            options={soundOptions}
             name="soundGroup"
             onChange={handlesoundChange}
-            selectedValue={soundOption}
+            selectedValue={options['sound'] || ''}
           />
         </S.QuestionContainer>
         <S.NextButton onPress={() => navigate('DCReport')}>
           <S.NextButtonText>Next</S.NextButtonText>
-          <NextIcon width={24}/>
+          <NextIcon width={24} />
         </S.NextButton>
       </S.Container>
     </S.Wrapper>

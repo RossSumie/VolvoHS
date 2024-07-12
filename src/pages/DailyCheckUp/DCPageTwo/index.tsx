@@ -14,7 +14,7 @@ import { useRadioButton } from '../../../hooks/radioButtonContext';
 const DCPageTwo = () => {
   const screenWidth = Dimensions.get('window').width;
   const { navigate } = useNavigation<DailyCheckUpStackScreensProps>();
-  const { options, setOption} = useRadioButton();
+  const { options, setOption } = useRadioButton();
 
   const handleCoolantLevelChange = (value: string) => {
     setOption('coolantLevel', value);
@@ -28,29 +28,44 @@ const DCPageTwo = () => {
     setOption('coolantRefill', value);
   };
 
+  const coolantLevelOptions = [
+    { label: 'Ok', value: 'ok' },
+    { label: 'Close to minimum', value: 'close to minimum' },
+    { label: 'Below minimum', value: 'below minimum' },
+    { label: 'NA', value: 'na' },
+  ];
+
+  const coolantLeakOptions = [
+    { label: 'No', value: 'ok' },
+    { label: 'Coolant Droplets', value: 'coolant droplets' },
+    { label: 'Clear Leak', value: 'clear leak' },
+    { label: 'NA', value: 'na' },
+  ];
+
   return (
     <S.Wrapper>
-      <Header/>
+      <Header />
       <S.Container>
         <S.QuestionnaireContainer>
-          <Progress.Bar 
+          <Progress.Bar
             progress={0.6}
             height={8}
-            width={screenWidth-56}
+            width={screenWidth - 56}
             animated={true}
             unfilledColor={'#A7ABA9'}
-            borderWidth={0} 
-            color={'#2D606F'}/>
+            borderWidth={0}
+            color={'#2D606F'}
+          />
           <S.QuestionsContainer>
             <MainTitle>Engine</MainTitle>
             <QuestionTitle>How is the coolant level?</QuestionTitle>
             <CustomRadioButtonGroup
-              labels={['Ok', 'Close to minimum', 'Below minimum', 'NA']}
+              options={coolantLevelOptions}
               name="coolantLevelGroup"
               onChange={handleCoolantLevelChange}
               selectedValue={options['coolantLevel'] || ''}
             />
-            <S.Gap/>
+            <S.Gap />
             <QuestionTitle>Was the coolant refilled today?</QuestionTitle>
             <S.DuoContainer>
               <S.DuoButton isSelected={options['coolantRefill'] === 'Yes'} onPress={() => handlePressDuo('Yes')}>
@@ -60,21 +75,21 @@ const DCPageTwo = () => {
                 <S.DuoButtonText isSelected={options['coolantRefill'] === 'No'}>No</S.DuoButtonText>
               </S.DuoButton>
             </S.DuoContainer>
-            <S.Gap/>
+            <S.Gap />
             <QuestionTitle>Are there any coolant leaks?</QuestionTitle>
             <CustomRadioButtonGroup
-              labels={['Ok', 'Coolant Droplets', 'Clear Leak', 'NA']}
+              options={coolantLeakOptions}
               name="coolantLeaksGroup"
               onChange={handleCoolantLeaksChange}
               selectedValue={options['coolantLeaks'] || ''}
             />
           </S.QuestionsContainer>
         </S.QuestionnaireContainer>
-        <S.Gap/>
-        <S.Gap/>
+        <S.Gap />
+        <S.Gap />
         <S.NextButton onPress={() => navigate('DCPageThree')}>
           <S.NextButtonText>Next</S.NextButtonText>
-          <NextIcon width={24}/>
+          <NextIcon width={24} />
         </S.NextButton>
       </S.Container>
     </S.Wrapper>

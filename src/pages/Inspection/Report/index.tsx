@@ -21,6 +21,7 @@ const Report: React.FC<{ route: any }> = ({ route }) => {
     clearOptions();
     navigate('Home');
   };
+  
 
   useEffect(() => {
     const fetchAnalyzedImage = async () => {
@@ -81,6 +82,8 @@ const Report: React.FC<{ route: any }> = ({ route }) => {
             )
           ))}
         </S.Report>
+        <MainTitle>Preventive Actions</MainTitle>
+        <S.ReportValue>Run the excavator at decreased power and order a new radiator.</S.ReportValue>
             {analyzedImageUrl && (
             <>
               <MainTitle>Analyzed images</MainTitle>

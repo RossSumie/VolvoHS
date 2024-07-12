@@ -8,8 +8,8 @@ import Selection from '../../../../pages/Inspection/Selection';
 import LoadingScreen from '../../../../pages/Inspection/LoadingScreen';
 
 type InspectionStackScreens = {
-  Selection:undefined;
-  INSQuestionnaire:{screenshotUri:string };
+  Selection: undefined;
+  INSQuestionnaire: { screenshotUri: string };
   RadiatorAR: undefined;
   Loading: undefined;
   Report: { id: string };
@@ -18,19 +18,19 @@ type InspectionStackScreens = {
 
 export type InspectionStackScreensProps = StackNavigationProp<InspectionStackScreens>;
 
-
 const { Screen, Navigator } = createStackNavigator<InspectionStackScreens>();
 
 const InspectionFlowStack = () => (
-  <Navigator screenOptions={{ headerShown: false }}>
+  <Navigator 
+    screenOptions={{ headerShown: false }}
+    initialRouteName="Selection"
+  >
     <Screen name="Selection" component={Selection} />
-    <Screen name="INSQuestionnaire" component={INSQuestionnaire} initialParams={{ screenshotUri:'' }}/>
+    <Screen name="INSQuestionnaire" component={INSQuestionnaire} initialParams={{ screenshotUri:'' }} />
     <Screen name="Report" component={Report} />
     <Screen name="RadiatorAR" component={RadiatorAR} />
     <Screen name="Home" component={Home} />
     <Screen name="Loading" component={LoadingScreen} />
-
-    
   </Navigator>
 );
 

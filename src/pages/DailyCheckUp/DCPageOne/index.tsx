@@ -16,6 +16,22 @@ const DCPageOne = () => {
   const { navigate } = useNavigation<DailyCheckUpStackScreensProps>();
   const { options, setOption } = useRadioButton();
 
+  const weatherOptions = [
+    { label: 'Hot', value: 'hot' },
+    { label: 'Cold', value: 'cold' },
+    { label: 'Windy', value: 'windy' },
+    { label: 'Downpour', value: 'downpour' },
+    { label: 'NA', value: 'na' },
+  ];
+
+  const operationOptions = [
+    { label: 'Heavy', value: 'heavy' },
+    { label: 'Light', value: 'light' },
+    { label: 'Very Deep', value: 'very deep' },
+    { label: 'High Load', value: 'high load' },
+    { label: 'NA', value: 'na' },
+  ];
+
   // Handlers that update specific options using the setOption function
   const handleWeatherChange = (value: string) => {
     setOption('weather', value);
@@ -46,7 +62,7 @@ const DCPageOne = () => {
           <MainTitle>Environment</MainTitle>
           <QuestionTitle>How is the weather today?</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['Hot', 'Cold', 'Windy', 'Downpour', 'NA']}
+            options={weatherOptions}
             name="weatherGroup"
             onChange={handleWeatherChange}
             selectedValue={weatherOption}
@@ -54,7 +70,7 @@ const DCPageOne = () => {
           <S.Gap/>
           <QuestionTitle>What kind of operations will be done today?</QuestionTitle>
           <CustomRadioButtonGroup
-            labels={['Heavy', 'Light', 'Very Deep', 'High Load', 'NA']}
+            options={operationOptions}
             name="operationGroup"
             onChange={handleOperationChange}
             selectedValue={operationOption}
